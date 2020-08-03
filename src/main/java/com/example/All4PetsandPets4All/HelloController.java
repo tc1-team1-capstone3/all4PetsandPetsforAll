@@ -8,7 +8,7 @@ package com.example.All4PetsandPets4All;
 
 	@RestController
 	public class HelloController {
-	    @GetMapping("/api/hello")
+	    @GetMapping("/hello")
 	    public String hello() {
 	        return "Hello, the time at the server is now " + new Date() + "\n";
 	    }
