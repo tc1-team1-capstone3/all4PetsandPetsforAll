@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
-import productAPI from '../Utils/productAPI.js';
-import { config } from '../firebase';
+import productAPI from '../../Utils/productAPI.js';
+import { config } from '../../firebase';
 import firebase from 'firebase';
 import FileUploader from 'react-firebase-file-uploader';
-
+import {useDispatch,useSelector} from 'react-redux';
+import {postItem} from '../../Redux/itemReducer/itemReducer'
 firebase.initializeApp(config);
 
 const Admin = () => {
+	const item = useSelector((state)=>state.itemReducer.items)
+	const dispatch = useDispatch();
+	const [ avatar, setAvatar ] = useState('');
+	const [ isUploading, setIsuploading ] = useState(false);
+	const [ progress, setProgress ] = useState(0);
+	const [ avatarUrl, setAvatarUrl ] = useState('');
 	const [ formData, setFormData ] = useState({
 		sku: '',
 		itemName: '',
@@ -14,28 +21,23 @@ const Admin = () => {
 		price: 0.0,
 		quantity: 0
 	});
-	const [ avatar, setAvatar ] = useState('');
-	const [ isUploading, setIsuploading ] = useState(false);
-	const [ progress, setProgress ] = useState(0);
-	const [ avatarUrl, setAvatarUrl ] = useState('');
-
 	const { sku, itemName, description, price, quantity } = formData;
 
 	const onChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
-	const onSubmit = async (e) => {
-		e.preventDefault();
-		console.log(formData);
-		try {
-			productAPI.createProduct({}).then((res) => {
-				console.log(res);
-			});
-		} catch (e) {
-			throw new Error(e);
-		}
-	};
+	// const onSubmit = async (e) => {
+	// 	e.preventDefault();
+	// 	console.log(formData);
+	// 	try {
+	// 		productAPI.createProduct({}).then((res) => {
+	// 			console.log(res);
+	// 		});
+	// 	} catch (e) {
+	// 		throw new Error(e);
+	// 	}
+	// };
 
 	let handleUploadStart = () => {
 		setIsuploading(true);
@@ -51,11 +53,11 @@ const Admin = () => {
 		setIsuploading(false);
 		firebase.storage().ref('images').child(filename).getDownloadURL().then((url) => setAvatarUrl(url));
 	};
-console.log(avatarUrl)
+console.log(item)
 	return (
 		<div>
 			<h1>Add Product</h1>
-			<form onSubmit={onSubmit}>
+			<form >
 				<input
 					value={sku}
 					onChange={(e) => onChange(e)}
@@ -106,7 +108,7 @@ console.log(avatarUrl)
 					onUploadSuccess={handleUploadSuccess}
 					onProgress={handleProgress}
 				/>
-				<button type="submit">Add to List</button>
+				<button type="submit" onClick={(e)=>dispatch(postItem(sku,itemName,description,price,quantity,avatarUrl))}>Add to List</button>
 			</form>
 		</div>
 	);
