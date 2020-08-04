@@ -21,8 +21,9 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductResponses createProduct(ProductRequest productRequest) {
+    public ProductResponses createProduct(@RequestBody ProductRequest productRequest) {
         ProductDto productDto = new ProductDto();
+        System.out.println(productRequest.getSKU() + " This is the product requests");
         BeanUtils.copyProperties(productRequest, productDto);
 
         ProductDto updatedProduct = productService.createProduct(productDto);
