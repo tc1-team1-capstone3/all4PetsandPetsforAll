@@ -19,7 +19,7 @@ const Featured = () => {
 
 	return (
 		<div>
-			<p>featured</p>
+			<p>{displayItems}</p>
 		</div>
 	);
 };

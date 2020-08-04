@@ -53,7 +53,7 @@ const Admin = () => {
 		setIsuploading(false);
 		firebase.storage().ref('images').child(filename).getDownloadURL().then((url) => setAvatarUrl(url));
 	};
-	console.log(item);
+	console.log(avatarUrl, avatar);
 	return (
 		<div>
 			<h1>Add Product</h1>

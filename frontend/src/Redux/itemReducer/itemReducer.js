@@ -2,9 +2,17 @@ import ProductsApi from '../../Utils/productAPI';
 
 const POST_ITEM = 'POST_ITEM';
 const GET_ITEMS = 'GET_ITEMS';
+const GET_ITEM = 'GET_ITEM';
 
 const setPostItem = (payload) => ({ type: POST_ITEM, payload });
 const setGetItems = (payload) => ({ type: GET_ITEMS, payload });
+const setGetItem = (payload) => ({ type: GET_ITEM, payload });
+
+export const getItem = (id) => {
+	return (dispatch) => {
+		ProductsApi.getProducts(id).then((response) => dispatch(setGetItem(response.data)));
+	};
+};
 
 export const getItems = () => {
 	return (dispatch) => {
