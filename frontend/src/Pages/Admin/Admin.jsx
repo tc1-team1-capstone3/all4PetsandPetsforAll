@@ -3,12 +3,12 @@ import productAPI from '../../Utils/productAPI.js';
 import { config } from '../../firebase';
 import firebase from 'firebase';
 import FileUploader from 'react-firebase-file-uploader';
-import {useDispatch,useSelector} from 'react-redux';
-import {postItem} from '../../Redux/itemReducer/itemReducer'
+import { useDispatch, useSelector } from 'react-redux';
+import { postItem } from '../../Redux/itemReducer/itemReducer';
 firebase.initializeApp(config);
 
 const Admin = () => {
-	const item = useSelector((state)=>state.itemReducer.items)
+	const item = useSelector((state) => state.itemReducer.items);
 	const dispatch = useDispatch();
 	const [ avatar, setAvatar ] = useState('');
 	const [ isUploading, setIsuploading ] = useState(false);
@@ -53,18 +53,18 @@ const Admin = () => {
 		setIsuploading(false);
 		firebase.storage().ref('images').child(filename).getDownloadURL().then((url) => setAvatarUrl(url));
 	};
-console.log(item)
+	console.log(item);
 	return (
 		<div>
 			<h1>Add Product</h1>
-			<form >
+			<form>
 				<input
 					value={sku}
 					onChange={(e) => onChange(e)}
 					name="sku"
 					id="sku"
 					type="input"
-					placeholder="Enter Item SKU"
+					//placeholder="Enter Item SKU"
 				/>
 				<input
 					value={itemName}
@@ -72,7 +72,7 @@ console.log(item)
 					name="itemName"
 					id="itemName"
 					type="input"
-					placeholder="Enter Item Name"
+					//placeholder="Enter Item Name"
 				/>
 				<input
 					value={description}
@@ -80,25 +80,25 @@ console.log(item)
 					name="description"
 					id="description"
 					type="textarea"
-					placeholder="Enter Item Description"
+					//placeholder="Enter Item Description"
 				/>
 				<input
 					onChange={(e) => onChange(e)}
 					name="price"
 					id="price"
 					type="input"
-					defaultValue={price}
-					placeholder="Enter Item Price"
+					//defaultValue={price}
+					//placeholder="Enter Item Price"
 				/>
 				<input
 					onChange={(e) => onChange(e)}
 					name="quantity"
 					id="quantity"
 					type="input"
-					defaultValue={quantity}
-					placeholder="Enter Item Quantity"
+					//defaultValue={quantity}
+					//placeholder="Enter Item Quantity"
 				/>
-                <FileUploader
+				<FileUploader
 					accept="image/*"
 					name="avatar"
 					randomizeFilename
@@ -108,7 +108,12 @@ console.log(item)
 					onUploadSuccess={handleUploadSuccess}
 					onProgress={handleProgress}
 				/>
-				<button type="submit" onClick={(e)=>dispatch(postItem(sku,itemName,description,price,quantity,avatarUrl))}>Add to List</button>
+				<button
+					type="submit"
+					onClick={(e) => dispatch(postItem(sku, itemName, description, price, quantity, avatarUrl))}
+				>
+					Add to List
+				</button>
 			</form>
 		</div>
 	);
