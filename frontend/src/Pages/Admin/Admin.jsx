@@ -4,7 +4,11 @@ import firebase from 'firebase';
 import FileUploader from 'react-firebase-file-uploader';
 import { useDispatch, useSelector } from 'react-redux';
 import { postItem } from '../../Redux/itemReducer/itemReducer';
+<<<<<<< HEAD
 import {Link} from "react-router-dom";
+=======
+import './Admin.scss';
+>>>>>>> 2d8548d7ab28d8b1eefc3c0c371e891172d2987f
 firebase.initializeApp(config);
 
 const Admin = () => {
@@ -66,6 +70,7 @@ const Admin = () => {
 					type="input"
 					//placeholder="Enter Item SKU"
 				/>
+<<<<<<< HEAD
 				{/*<input*/}
 				{/*	value={itemName}*/}
 				{/*	onChange={(e) => onChange(e)}*/}
@@ -109,6 +114,51 @@ const Admin = () => {
 				{/*	onProgress={handleProgress}*/}
 				{/*/>*/}
 				<button
+=======
+				<input
+					value={itemName}
+					onChange={(e) => onChange(e)}
+					name="itemName"
+					id="itemName"
+					type="input"
+					//placeholder="Enter Item Name"
+				/>
+				<input
+					value={description}
+					onChange={(e) => onChange(e)}
+					name="description"
+					id="description"
+					type="textarea"
+					//placeholder="Enter Item Description"
+				/>
+				<input
+					onChange={(e) => onChange(e)}
+					name="price"
+					id="price"
+					type="input"
+					//defaultValue={price}
+					//placeholder="Enter Item Price"
+				/>
+				<input
+					onChange={(e) => onChange(e)}
+					name="quantity"
+					id="quantity"
+					type="input"
+					//defaultValue={quantity}
+					//placeholder="Enter Item Quantity"
+				/>
+				<FileUploader
+					accept="image/*"
+					name="avatar"
+					randomizeFilename
+					storageRef={firebase.storage().ref('images')}
+					onUploadStart={handleUploadStart}
+					onUploadError={handleUploadError}
+					onUploadSuccess={handleUploadSuccess}
+					onProgress={handleProgress}
+				/>
+				<button style ={{color: "#FF8484"}}
+>>>>>>> 2d8548d7ab28d8b1eefc3c0c371e891172d2987f
 					type="submit"
 					onClick={(e) => dispatch(postItem(sku, itemName, description, price, quantity, avatarUrl))}
 				>
