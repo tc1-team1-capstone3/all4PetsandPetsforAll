@@ -17,7 +17,7 @@ const Home = () => {
     <>
       <h1>Hello World</h1>
       <Link to='/admin'>
-        <h1>Admin</h1>
+        <h2>Admin</h2>
       </Link>
         <ItemDisplay productList={productList} admin={false} />
     </>
