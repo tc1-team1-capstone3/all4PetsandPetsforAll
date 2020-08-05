@@ -34,7 +34,7 @@ public class ProductController {
 
     @GetMapping
     public List<ProductResponses> getProducts(@RequestParam(defaultValue = "0") Integer pageNo,
-                                             @RequestParam(defaultValue = "5") Integer pageSize,
+                                             @RequestParam(defaultValue = "15") Integer pageSize,
                                              @RequestParam(defaultValue = "id") String sortBy) {
         List<ProductResponses> returnValue = new ArrayList<>();
         List<ProductDto> productDtos = productService.getProducts(pageNo, pageSize, sortBy);

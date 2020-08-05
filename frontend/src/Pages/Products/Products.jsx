@@ -5,7 +5,7 @@ import { getItems } from '../../Redux/itemReducer/itemReducer';
 const Products = () => {
 	const item = useSelector((state) => state.itemReducer.items);
 	const dispatch = useDispatch();
-	useEffect(() => dispatch(getItems()));
+	useEffect(() => dispatch(getItems()), []);
 	let displayItems = item
 		? item.map((product) => {
 				return (
