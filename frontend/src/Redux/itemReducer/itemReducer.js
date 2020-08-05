@@ -20,9 +20,9 @@ export const getItems = () => {
 	};
 };
 
-export const postItem = (sku, itemName, description, price, quantity, pic) => {
+export const postItem = (sku, name, description, price, imgUrl) => {
 	return (dispatch) => {
-		ProductsApi.createProduct({ sku, itemName, description, price, quantity, pic }).then((response) =>
+		ProductsApi.createProduct({ sku, name, description, price, imgUrl}).then((response) =>
 			dispatch(setPostItem(response.data))
 		);
 	};

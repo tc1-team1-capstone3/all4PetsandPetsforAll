@@ -6,7 +6,7 @@ const Products = () => {
 <<<<<<< HEAD
 	const item = useSelector((state) => state.itemReducer.items);
 	const dispatch = useDispatch();
-	useEffect(() => dispatch(getItems()), []);
+	useEffect(dispatch(getItems()), []);
 	let displayItems = item
 		? item.map((product) => {
 				return (
@@ -18,7 +18,7 @@ const Products = () => {
 		: '';
 	return (
 		<div>
-			<p>products</p>
+			{displayItems}
 		</div>
 	);
 =======

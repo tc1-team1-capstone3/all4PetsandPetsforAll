@@ -4,11 +4,8 @@ import firebase from 'firebase';
 import FileUploader from 'react-firebase-file-uploader';
 import { useDispatch, useSelector } from 'react-redux';
 import { postItem } from '../../Redux/itemReducer/itemReducer';
-<<<<<<< HEAD
 import {Link} from "react-router-dom";
-=======
 import './Admin.scss';
->>>>>>> 2d8548d7ab28d8b1eefc3c0c371e891172d2987f
 firebase.initializeApp(config);
 
 const Admin = () => {
@@ -22,26 +19,13 @@ const Admin = () => {
 		sku: '',
 		itemName: '',
 		description: '',
-		price: 0.0,
-		quantity: 0
+		price: 0.0
 	});
-	const { sku, itemName, description, price, quantity } = formData;
+	const { sku, itemName, description, price } = formData;
 
 	const onChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
-
-	// const onSubmit = async (e) => {
-	// 	e.preventDefault();
-	// 	console.log(formData);
-	// 	try {
-	// 		productAPI.createProduct({}).then((res) => {
-	// 			console.log(res);
-	// 		});
-	// 	} catch (e) {
-	// 		throw new Error(e);
-	// 	}
-	// };
 
 	let handleUploadStart = () => {
 		setIsuploading(true);
@@ -62,94 +46,46 @@ const Admin = () => {
 			<Link to="/"><h3>Home</h3></Link>
 			<h1>Add Product</h1>
 			<form>
+				<label htmlFor="sku">Item Sku</label>
 				<input
 					value={sku}
 					onChange={(e) => onChange(e)}
 					name="sku"
 					id="sku"
 					type="input"
-					//placeholder="Enter Item SKU"
+					placeholder="Enter Item SKU"
 				/>
-<<<<<<< HEAD
-				{/*<input*/}
-				{/*	value={itemName}*/}
-				{/*	onChange={(e) => onChange(e)}*/}
-				{/*	name="itemName"*/}
-				{/*	id="itemName"*/}
-				{/*	type="input"*/}
-				{/*	//placeholder="Enter Item Name"*/}
-				{/*/>*/}
-				{/*<input*/}
-				{/*	value={description}*/}
-				{/*	onChange={(e) => onChange(e)}*/}
-				{/*	name="description"*/}
-				{/*	id="description"*/}
-				{/*	type="textarea"*/}
-				{/*	//placeholder="Enter Item Description"*/}
-				{/*/>*/}
-				{/*<input*/}
-				{/*	onChange={(e) => onChange(e)}*/}
-				{/*	name="price"*/}
-				{/*	id="price"*/}
-				{/*	type="input"*/}
-				{/*	//defaultValue={price}*/}
-				{/*	//placeholder="Enter Item Price"*/}
-				{/*/>*/}
-				{/*<input*/}
-				{/*	onChange={(e) => onChange(e)}*/}
-				{/*	name="quantity"*/}
-				{/*	id="quantity"*/}
-				{/*	type="input"*/}
-				{/*	//defaultValue={quantity}*/}
-				{/*	//placeholder="Enter Item Quantity"*/}
-				{/*/>*/}
-				{/*<FileUploader*/}
-				{/*	accept="image/*"*/}
-				{/*	name="avatar"*/}
-				{/*	randomizeFilename*/}
-				{/*	storageRef={firebase.storage().ref('images')}*/}
-				{/*	onUploadStart={handleUploadStart}*/}
-				{/*	onUploadError={handleUploadError}*/}
-				{/*	onUploadSuccess={handleUploadSuccess}*/}
-				{/*	onProgress={handleProgress}*/}
-				{/*/>*/}
-				<button
-=======
+				<label htmlFor="itemName">Item Name</label>
 				<input
 					value={itemName}
 					onChange={(e) => onChange(e)}
 					name="itemName"
 					id="itemName"
 					type="input"
-					//placeholder="Enter Item Name"
+					placeholder="Enter Item Name"
 				/>
+				<label htmlFor="description">Item Description</label>
 				<input
 					value={description}
 					onChange={(e) => onChange(e)}
 					name="description"
 					id="description"
 					type="textarea"
-					//placeholder="Enter Item Description"
+					placeholder="Enter Item Description"
 				/>
+				<label htmlFor="price">Item Price</label>
 				<input
 					onChange={(e) => onChange(e)}
 					name="price"
 					id="price"
 					type="input"
-					//defaultValue={price}
-					//placeholder="Enter Item Price"
+					placeholder="Enter Item Price"
 				/>
-				<input
-					onChange={(e) => onChange(e)}
-					name="quantity"
-					id="quantity"
-					type="input"
-					//defaultValue={quantity}
-					//placeholder="Enter Item Quantity"
-				/>
+				<label htmlFor="imgInput">Item Image</label>
 				<FileUploader
 					accept="image/*"
 					name="avatar"
+					id="imgInput"
 					randomizeFilename
 					storageRef={firebase.storage().ref('images')}
 					onUploadStart={handleUploadStart}
@@ -157,10 +93,10 @@ const Admin = () => {
 					onUploadSuccess={handleUploadSuccess}
 					onProgress={handleProgress}
 				/>
-				<button style ={{color: "#FF8484"}}
->>>>>>> 2d8548d7ab28d8b1eefc3c0c371e891172d2987f
+
+				<button
 					type="submit"
-					onClick={(e) => dispatch(postItem(sku, itemName, description, price, quantity, avatarUrl))}
+					onClick={(e) => dispatch(postItem(sku, itemName, description, price, avatarUrl))}
 				>
 					Add to List
 				</button>

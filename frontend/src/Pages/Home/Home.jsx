@@ -18,7 +18,12 @@ const Home = () => {
         <h1>Hello World</h1>
             <Link to="/admin"><h3>Admin</h3></Link>
             {productList ? productList.map(products => {
-                return <p key={products.id}>Product SKU: {products.sku}</p>
+                return (
+                    <div key={products.id}>
+                        <img height="200px" width="200px" src={products.imgUrl} alt={products.name} />
+                        <p>Product SKU: {products.sku}, Product Name {products.name}, Description: {products.description}, Price: {products.price}</p>
+                    </div >
+                )
             }): "no items"}
         </>
     )
