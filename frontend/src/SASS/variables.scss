@@ -1,18 +1,27 @@
 $color-primary: #231651;
-$color-secondary: #2374AB;
-$color-light: #D6FFF6;
-$color-highlight1: #4DCCBD;
-$color-highlight2: #FF8484;
+$color-secondary: #2374ab;
+$color-light: #d6fff6;
+$color-highlight1: #4dccbd;
+$color-highlight2: #ff8484;
 
-$style1: (foreground: $color-light, background: $color-secondary);
-$style2: (foreground: $color-primary, background: $color-highlight1);
-$style3: (foreground: $color-primary, background: $color-highlight2);
+$style1: (
+  foreground: $color-light,
+  background: $color-secondary,
+);
+$style2: (
+  foreground: $color-primary,
+  background: $color-highlight1,
+);
+$style3: (
+  foreground: $color-primary,
+  background: $color-highlight2,
+);
 
 $breakpoint: 800px;
 
-$button: button{
-  background:none;
-  border:none;
-  font-size:1em;
-  color:#FF8484;
-}
+// $button: button {
+//   background:none;
+//   border:none;
+//   font-size:1em;
+//   color:#FF8484;
+// }
