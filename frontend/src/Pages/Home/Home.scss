@@ -1,0 +1,74 @@
+$color-primary: #231651;
+$color-secondary: #2374AB;
+$color-light: #D6FFF6;
+$color-highlight1: #4DCCBD;
+$color-highlight2: #FF8484;
+
+$style1: (foreground: $color-light, background: $color-secondary);
+$style2: (foreground: $color-primary, background: $color-highlight1);
+$style3: (foreground: $color-primary, background: $color-highlight2);
+@mixin content-style($foreground, $background){
+  color: $foreground;
+  background-color: $background;
+}
+
+body{
+  font-family: sans-serif;
+  text-align: center;
+  background: linear-gradient(155deg, $color-primary 70%, $color-secondary 70%);
+  color: $color-light;
+  min-height: 100vh;
+}
+
+h1{
+  color: $color-highlight1;
+}
+
+h2{
+  color: $color-highlight2;
+}
+
+
+$breakpoint: 800px;
+.profile-body{
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+  margin-top: 32px;
+  margin-left: 10vw;
+  margin-right: 10vw;
+  @media screen and (max-width: $breakpoint){
+    flex-direction: column;
+  }
+}
+.profile-section{
+  background-color: $color-highlight1;
+  color: $color-primary;
+  margin: 16px;
+  border-radius: 10px;
+  width: 340px;
+  .profile-content{
+    padding: 20px;
+  }
+  @media screen and (max-width: $breakpoint){
+    width: 100%;
+  }
+}
+
+.profile-header{
+  a{
+
+    @include content-style($style2...);
+  }
+}
+
+a{
+
+  @include content-style($style1...);
+}
+
+.profile-section{
+
+  @include content-style($style2...);
+}
+

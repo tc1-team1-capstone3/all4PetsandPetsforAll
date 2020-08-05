@@ -5,6 +5,7 @@ import firebase from 'firebase';
 import FileUploader from 'react-firebase-file-uploader';
 import { useDispatch, useSelector } from 'react-redux';
 import { postItem } from '../../Redux/itemReducer/itemReducer';
+import './Admin.scss';
 firebase.initializeApp(config);
 
 const Admin = () => {
@@ -108,7 +109,7 @@ const Admin = () => {
 					onUploadSuccess={handleUploadSuccess}
 					onProgress={handleProgress}
 				/>
-				<button
+				<button style ={{color: "#FF8484"}}
 					type="submit"
 					onClick={(e) => dispatch(postItem(sku, itemName, description, price, quantity, avatarUrl))}
 				>
