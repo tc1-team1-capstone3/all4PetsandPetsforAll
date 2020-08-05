@@ -1,0 +1,4 @@
+@mixin content-style($foreground, $background){
+  color: $foreground;
+  background-color: $background;
+}

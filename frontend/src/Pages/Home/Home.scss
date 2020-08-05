@@ -1,16 +1,5 @@
-$color-primary: #231651;
-$color-secondary: #2374AB;
-$color-light: #D6FFF6;
-$color-highlight1: #4DCCBD;
-$color-highlight2: #FF8484;
-
-$style1: (foreground: $color-light, background: $color-secondary);
-$style2: (foreground: $color-primary, background: $color-highlight1);
-$style3: (foreground: $color-primary, background: $color-highlight2);
-@mixin content-style($foreground, $background){
-  color: $foreground;
-  background-color: $background;
-}
+import "frontend/src/SASS/variables.scss";
+import "frontend/src/SASS/mixIns.scss";
 
 body{
   font-family: sans-serif;
@@ -58,17 +47,18 @@ $breakpoint: 800px;
 .profile-header{
   a{
 
-    @include content-style($style2...);
+    @include content-style($style1...);
   }
 }
 
 a{
 
-  @include content-style($style1...);
+  @include content-style($style3...);
 }
 
 .profile-section{
 
   @include content-style($style2...);
 }
+
 
