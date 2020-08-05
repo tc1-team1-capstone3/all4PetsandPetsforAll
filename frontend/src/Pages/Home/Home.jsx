@@ -1,27 +1,27 @@
-import React, {useEffect, useState} from 'react';
-import { Link } from "react-router-dom";
-import productAPI from "../../Utils/productAPI";
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import productAPI from '../../Utils/productAPI'
+import ItemDisplay from "../../Components/ItemDisplay/ItemDisplay";
 
 const Home = () => {
-    const [productList, setProductList] = useState([]);
+  const [productList, setProductList] = useState([])
 
-    useEffect( () => {
-        const getProductList = async () => {
-            const returnedList = await productAPI.getProducts();
-            setProductList(returnedList.data);
-        }
-        getProductList();
+  useEffect(() => {
+    const getProductList = async () => {
+      const returnedList = await productAPI.getProducts()
+      setProductList(returnedList.data)
     }
-    ,[]);
-    return(
-        <>
-        <h1>Hello World</h1>
-            <Link to="/admin"><h3>Admin</h3></Link>
-            {productList ? productList.map(products => {
-                return <p key={products.id}>Product SKU: {products.sku}</p>
-            }): "no items"}
-        </>
-    )
+    getProductList()
+  }, [])
+  return (
+    <>
+      <h1>Hello World</h1>
+      <Link to='/admin'>
+        <h1>Admin</h1>
+      </Link>
+        <ItemDisplay productList={productList} admin={false} />
+    </>
+  )
 }
 
-export default Home;
+export default Home
