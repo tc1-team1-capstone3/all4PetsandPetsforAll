@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import productAPI from '../../Utils/productAPI'
 import ItemDisplay from "../../Components/ItemDisplay/ItemDisplay";
 import SearchBar from '../../Components/SearchBar/SearchBar'
-
+import Featured from '../../Components/Featured/Featured'
 const Home = () => {
   const [productList, setProductList] = useState([])
 
@@ -22,6 +22,7 @@ const Home = () => {
         <h1>Admin</h1>
       </Link>
         <ItemDisplay productList={productList} admin={false} />
+        <Featured/>
     </>
   )
 }
