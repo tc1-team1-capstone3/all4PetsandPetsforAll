@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import productAPI from '../../Utils/productAPI'
 import ItemDisplay from "../../Components/ItemDisplay/ItemDisplay";
+import SearchBar from '../../Components/SearchBar/SearchBar'
 
 const Home = () => {
   const [productList, setProductList] = useState([])
@@ -15,6 +16,7 @@ const Home = () => {
   }, [])
   return (
     <>
+    <SearchBar/>
       <h1>Hello World</h1>
       <Link to='/admin'>
         <h1>Admin</h1>
