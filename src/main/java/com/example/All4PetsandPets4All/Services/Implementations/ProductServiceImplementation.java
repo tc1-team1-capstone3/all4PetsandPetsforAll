@@ -1,12 +1,15 @@
 package com.example.All4PetsandPets4All.Services.Implementations;
 
 import com.example.All4PetsandPets4All.Dto.ProductDto;
+import com.example.All4PetsandPets4All.Dto.WarehouseDto;
 import com.example.All4PetsandPets4All.Models.ProductModel;
+import com.example.All4PetsandPets4All.Models.Requests.ProductRequest;
 import com.example.All4PetsandPets4All.Models.WarehouseModel;
 import com.example.All4PetsandPets4All.Services.ProductService;
 import com.example.All4PetsandPets4All.dao.ProductRepository;
 import com.example.All4PetsandPets4All.dao.WarehouseRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -55,8 +58,24 @@ public class ProductServiceImplementation implements ProductService {
         for (ProductModel product : products) {
             ProductDto temp = new ProductDto();
             BeanUtils.copyProperties(product, temp);
+            WarehouseModel warehouseModel = warehouseRepository.findBySKU(product.getSKU()).get();
+            BeanUtils.copyProperties(warehouseModel, temp);
             productDtos.add(temp);
         }
         return productDtos;
+    }
+
+    @Override
+    public ProductDto updateProduct(ProductRequest productRequest) {
+        //ProductModel selectedProduct = productRepository.findBySKU(productRequest.getSKU()).get();
+        WarehouseModel warehouseModel = warehouseRepository.findBySKU(productRequest.getSKU()).get();
+        if (productRequest.getQuantity() > 0) {
+            warehouseModel.setQuantity(warehouseModel.getQuantity() + productRequest.getQuantity());
+            warehouseRepository.save(warehouseModel);
+        }
+        ProductDto returnValue = new ProductDto();
+        BeanUtils.copyProperties(productRequest, returnValue);
+        BeanUtils.copyProperties(warehouseModel, returnValue);
+        return returnValue;
     }
 }
