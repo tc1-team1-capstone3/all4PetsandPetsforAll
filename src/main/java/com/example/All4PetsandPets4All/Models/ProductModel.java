@@ -3,12 +3,15 @@ package com.example.All4PetsandPets4All.Models;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "products")
 public class ProductModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    //@OneToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "warehouse_id", referencedColumnName = "id")
     @Column(nullable = false, unique = true)
     private Long SKU;
     @Column()

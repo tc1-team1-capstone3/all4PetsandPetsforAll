@@ -2,8 +2,10 @@ package com.example.All4PetsandPets4All.Services.Implementations;
 
 import com.example.All4PetsandPets4All.Dto.ProductDto;
 import com.example.All4PetsandPets4All.Models.ProductModel;
+import com.example.All4PetsandPets4All.Models.WarehouseModel;
 import com.example.All4PetsandPets4All.Services.ProductService;
 import com.example.All4PetsandPets4All.dao.ProductRepository;
+import com.example.All4PetsandPets4All.dao.WarehouseRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,18 +20,27 @@ import java.util.List;
 public class ProductServiceImplementation implements ProductService {
 
     private final ProductRepository productRepository;
+    private final WarehouseRepository warehouseRepository;
 
-    public ProductServiceImplementation(ProductRepository productRepository) {
+    public ProductServiceImplementation(ProductRepository productRepository, WarehouseRepository warehouseRepository) {
         this.productRepository = productRepository;
+        this.warehouseRepository = warehouseRepository;
     }
 
     @Override
     public ProductDto createProduct(ProductDto productDto) {
 
         ProductModel newProduct = new ProductModel();
-        BeanUtils.copyProperties(productDto, newProduct);
+        WarehouseModel newWarehouse = new WarehouseModel();
 
-        ProductModel storedProductDetails = (ProductModel) productRepository.save(newProduct);
+        BeanUtils.copyProperties(productDto, newProduct);
+        BeanUtils.copyProperties(productDto, newWarehouse);
+        if (newWarehouse.getQuantity() < 1 || newWarehouse.getQuantity() == null) {
+            newWarehouse.setQuantity(0);
+        }
+
+        ProductModel storedProductDetails = productRepository.save(newProduct);
+        warehouseRepository.save(newWarehouse);
 
         ProductDto returnValue = new ProductDto();
         BeanUtils.copyProperties(storedProductDetails, returnValue);
