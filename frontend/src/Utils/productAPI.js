@@ -7,7 +7,10 @@ export default {
 	getProducts: function() {
 		return axios.get('products');
 	},
-	getProduct: function(productId) {
-		return axios.post('product', productId);
+	getProduct: function(sku) {
+		return axios.post('product', sku);
+	},
+	addQuantity: function(productData) {
+		return axios.put('products', productData)
 	}
 };

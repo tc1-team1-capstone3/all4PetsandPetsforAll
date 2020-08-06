@@ -15,15 +15,15 @@ const Home = () => {
     getProductList()
   }, [])
   return (
-    <>
-    <SearchBar/>
+    <div>
+    {/*<SearchBar/>*/}
       <h1>Hello World</h1>
       <Link to='/admin'>
         <h1>Admin</h1>
       </Link>
         <ItemDisplay productList={productList} admin={false} />
-        <Featured/>
-    </>
+        {/*<Featured/>*/}
+    </div>
   )
 }
 
