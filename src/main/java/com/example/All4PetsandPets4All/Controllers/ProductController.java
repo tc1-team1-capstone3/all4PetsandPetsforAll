@@ -26,6 +26,9 @@ public class ProductController {
         ProductDto productDto = new ProductDto();
 
         BeanUtils.copyProperties(productRequest, productDto);
+        if (productDto.getQuantity() == null || productDto.getQuantity() < 1) {
+            productDto.setQuantity(0);
+        }
 
         ProductDto updatedProduct = productService.createProduct(productDto);
 

@@ -33,12 +33,13 @@ public class ProductServiceImplementation implements ProductService {
     @Override
     public ProductDto createProduct(ProductDto productDto) {
 
+        System.out.println(productDto.getQuantity());
         ProductModel newProduct = new ProductModel();
         WarehouseModel newWarehouse = new WarehouseModel();
 
         BeanUtils.copyProperties(productDto, newProduct);
         BeanUtils.copyProperties(productDto, newWarehouse);
-        if (newWarehouse.getQuantity() < 1 || newWarehouse.getQuantity() == null) {
+        if (newWarehouse.getQuantity() < 1) {
             newWarehouse.setQuantity(0);
         }
 
