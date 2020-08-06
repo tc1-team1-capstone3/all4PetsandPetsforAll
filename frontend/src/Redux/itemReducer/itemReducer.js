@@ -8,9 +8,9 @@ const setPostItem = (payload) => ({ type: POST_ITEM, payload });
 const setGetItems = (payload) => ({ type: GET_ITEMS, payload });
 const setGetItem = (payload) => ({ type: GET_ITEM, payload });
 
-export const getItem = (id) => {
+export const getItem = (sku) => {
 	return (dispatch) => {
-		ProductsApi.getProducts(id).then((response) => dispatch(setGetItem(response.data)));
+		ProductsApi.getProducts(sku).then((response) => dispatch(setGetItem(response.data)));
 	};
 };
 

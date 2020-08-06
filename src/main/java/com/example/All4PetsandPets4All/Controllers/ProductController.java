@@ -1,6 +1,7 @@
 package com.example.All4PetsandPets4All.Controllers;
 
 import com.example.All4PetsandPets4All.Dto.ProductDto;
+import com.example.All4PetsandPets4All.Dto.WarehouseDto;
 import com.example.All4PetsandPets4All.Models.Requests.ProductRequest;
 import com.example.All4PetsandPets4All.Models.Responses.ProductResponses;
 import com.example.All4PetsandPets4All.Services.ProductService;
@@ -23,12 +24,25 @@ public class ProductController {
     @PostMapping
     public ProductResponses createProduct(@RequestBody ProductRequest productRequest) {
         ProductDto productDto = new ProductDto();
+
         BeanUtils.copyProperties(productRequest, productDto);
+        if (productDto.getQuantity() == null || productDto.getQuantity() < 1) {
+            productDto.setQuantity(0);
+        }
 
         ProductDto updatedProduct = productService.createProduct(productDto);
 
         ProductResponses returnValue = new ProductResponses();
         BeanUtils.copyProperties(updatedProduct, returnValue);
+        return returnValue;
+    }
+
+
+    @PutMapping
+    public ProductResponses updateProduct(@RequestBody ProductRequest productRequest) {
+        ProductResponses returnValue = new ProductResponses();
+        ProductDto productDto = productService.updateProduct(productRequest);
+        BeanUtils.copyProperties(productDto, returnValue);
         return returnValue;
     }
 

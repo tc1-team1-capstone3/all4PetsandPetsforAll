@@ -8,12 +8,13 @@ public class ProductDto {
     String description;
     Double price;
     String imgUrl;
+    Integer quantity;
 
     public ProductDto() {
        super();
     }
 
-    public ProductDto(Long id, Long SKU, String name, String description, Double price, String imgUrl) {
+    public ProductDto(Long id, Long SKU, String name, String description, Double price, String imgUrl, Integer quantity) {
         super();
         this.id = id;
         this.SKU = SKU;
@@ -21,6 +22,7 @@ public class ProductDto {
         this.description = description;
         this.price = price;
         this.imgUrl = imgUrl;
+        this.quantity = quantity;
     }
 
     public Long getId() {
@@ -69,5 +71,13 @@ public class ProductDto {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

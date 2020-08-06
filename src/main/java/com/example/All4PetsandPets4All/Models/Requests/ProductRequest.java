@@ -6,18 +6,20 @@ public class ProductRequest {
     private String description;
     private Double price;
     private String imgUrl;
+    private Integer quantity;
 
     public ProductRequest(){
         //super();
     }
 
-    public ProductRequest(Long SKU, String name, String description, Double price, String imgUrl) {
+    public ProductRequest(Long SKU, String name, String description, Double price, String imgUrl, Integer quantity) {
         //super();
         this.SKU = SKU;
         this.name = name;
         this.description = description;
         this.price = price;
         this.imgUrl = imgUrl;
+        this.quantity = quantity;
     }
 
     public Long getSKU() {
@@ -58,5 +60,13 @@ public class ProductRequest {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }
