@@ -8,27 +8,20 @@ public class ProductResponses {
     String description;
     Double price;
     String imgUrl;
+    Integer quantity;
 
     public ProductResponses() {
         super();
     }
 
-    public ProductResponses(Long id, Long SKU, String name, String description, Double price, String imgUrl) {
+    public ProductResponses(Long SKU, String name, String description, Double price, String imgUrl, Integer quantity) {
         super();
-        this.id = id;
         this.SKU = SKU;
         this.name = name;
         this.description = description;
         this.price = price;
         this.imgUrl = imgUrl;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
+        this.quantity = quantity;
     }
 
     public Long getSKU() {
@@ -69,5 +62,13 @@ public class ProductResponses {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }
