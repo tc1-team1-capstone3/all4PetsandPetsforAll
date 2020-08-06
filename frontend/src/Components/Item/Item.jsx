@@ -12,6 +12,7 @@ const Item = ({product, admin}) => {
         console.log(userQuantity);
         productAPI.addQuantity({sku: product.sku, quantity: userQuantity}).then(res => {
             console.log(res);
+            window.location.reload();
         })
     }
 
@@ -35,10 +36,10 @@ const Item = ({product, admin}) => {
                     {product.description}</p>
                 <p>Price: ${product.price}</p>
                 <p>Product Quantity: {product.quantity}</p>
-                {admin ? (<><input className='quantityInput hide' type='text' onChange={e => onChange(e)}/><button className='cart-btn' type='button' data-open={false} onClick={e => updateQuantity(e)}>Add Quantity</button></>) :
-                    ''
-                }
-
+                {admin ? (<>
+                        <input className='quantityInput hide' type='text' onChange={e => onChange(e)}/>
+                        <button className='cart-btn' type='button' data-open={false} onClick={e => updateQuantity(e)}>Add Quantity</button>
+                    </>) : '' }
             </div>
         </div>
 
