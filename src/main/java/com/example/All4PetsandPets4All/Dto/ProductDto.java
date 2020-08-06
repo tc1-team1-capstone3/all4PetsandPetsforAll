@@ -14,9 +14,8 @@ public class ProductDto {
        super();
     }
 
-    public ProductDto(Long id, Long SKU, String name, String description, Double price, String imgUrl, Integer quantity) {
+    public ProductDto(Long SKU, String name, String description, Double price, String imgUrl, Integer quantity) {
         super();
-        this.id = id;
         this.SKU = SKU;
         this.name = name;
         this.description = description;
