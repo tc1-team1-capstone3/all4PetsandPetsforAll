@@ -17,6 +17,18 @@ h2 {
   color: $color-highlight2;
 }
 
+itemDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 32px;
+  margin-left: 10vw;
+  margin-right: 10vw;
+  @media screen and (max-width: $breakpoint) {
+    flex-direction: column;
+  }
+}
+
 $breakpoint: 800px;
 .profile-body {
   display: flex;
@@ -49,7 +61,7 @@ $breakpoint: 800px;
   }
 }
 
-a {
+style2{
   @include content-style($style3...);
 }
 

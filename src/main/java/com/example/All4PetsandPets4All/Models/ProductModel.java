@@ -39,6 +39,8 @@ public class ProductModel {
         return id;
     }
 
+    public void setId(Long id){this.id = id;}
+
     public Long getSKU() {
         return SKU;
     }

@@ -16,7 +16,7 @@ const Products = () => {
 			})
 		: '';
 	return (
-		<div>
+		<div class = "itemDisplay">
 			{displayItems}
 		</div>
 	);
