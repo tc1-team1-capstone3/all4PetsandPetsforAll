@@ -115,13 +115,8 @@ const Admin = () => {
         <button
           type='submit'
           onClick={async (e) => {
-            try {
               await dispatch(postItem(sku, itemName, description, price, avatarUrl));
-              window.location.redirect('/admin');
-            } catch (e) {
-              console.log(e)
-            }
-          } }
+          }}
         >
           Add to List
         </button>
