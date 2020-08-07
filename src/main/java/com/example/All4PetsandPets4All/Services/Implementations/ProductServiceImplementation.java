@@ -9,6 +9,7 @@ import com.example.All4PetsandPets4All.Models.WarehouseModel;
 import com.example.All4PetsandPets4All.Services.ProductService;
 import com.example.All4PetsandPets4All.dao.ProductRepository;
 import com.example.All4PetsandPets4All.dao.WarehouseRepository;
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
@@ -69,18 +70,6 @@ public class ProductServiceImplementation implements ProductService {
         return productDtos;
     }
 
-//    @Override
-//    public ProductDto updateProduct(ProductRequest productRequest) {
-//        WarehouseModel warehouseModel = warehouseRepository.findBySKU(productRequest.getSKU()).get();
-//        if (productRequest.getQuantity() > 0) {
-//            warehouseModel.setQuantity(warehouseModel.getQuantity() + productRequest.getQuantity());
-//            warehouseRepository.save(warehouseModel);
-//        }
-//        ProductDto returnValue = new ProductDto();
-//        BeanUtils.copyProperties(productRequest, returnValue);
-//        BeanUtils.copyProperties(warehouseModel, returnValue);
-//        return returnValue;
-//    }
 
     @Override
     public ProductDto updateASingleProduct(Long SKU, ProductRequest productRequest) {
@@ -122,5 +111,15 @@ public class ProductServiceImplementation implements ProductService {
         ProductDto returnDto = new ProductDto();
         BeanUtils.copyProperties(saveProduct, returnDto);
         return returnDto;
+    }
+
+    @Override
+    public ProductDto getProductBySku(Long sku) {
+        ProductModel selectedProduct = productRepository.findBySKU(sku).get();
+        ProductDto returnValue = new ProductDto();
+        WarehouseModel warehouseDto = warehouseRepository.findBySKU(sku).get();
+        BeanUtils.copyProperties(selectedProduct, returnValue);
+        BeanUtils.copyProperties(warehouseDto, returnValue);
+        return returnValue;
     }
 }

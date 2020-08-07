@@ -7,12 +7,6 @@ import routes from './routes';
 import NavBar from './Components/NavBar/NavBAR';
 
 function App() {
-	// const [ message, setMessage ] = useState('');
-	// useEffect(() => {
-	// 	fetch('/api/hello').then((response) => response.text()).then((message) => {
-	// 		setMessage(message);
-	// 	});
-	// }, []);
 	return (
 		<Provider store={store}>
 			<Router>

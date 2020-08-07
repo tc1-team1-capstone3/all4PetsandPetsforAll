@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import productAPI from "../../Utils/productAPI";
-
+import './Item.scss'
 const Item = ({product, admin}) => {
     const [userQuantity, setUserQuantity] = useState('');
 
@@ -17,11 +17,12 @@ const Item = ({product, admin}) => {
     }
 
     return (
+        <div className='outerWrapper '>
         <div className='product-card' key={product.id} style={{
             textAlign: "center",
             width: "220px",
             height: "500px;",
-            margin: "20px",
+            // margin: "20px",
             borderBottom: "2px solid lightpink"
         }}>
             <Link to={admin ? `/adminProduct/${product.sku}` : `/product/${product.sku}`}>
@@ -42,7 +43,7 @@ const Item = ({product, admin}) => {
                     </>) : '' }
             </div>
         </div>
-
+        </div>
     );
 };
 
