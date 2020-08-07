@@ -10,9 +10,10 @@ public interface ProductService {
 
     List<ProductDto> getProducts(Integer pageNo, Integer pageSize, String sortBy);
 
-    ProductDto updateProduct(ProductRequest productRequest);
+    ProductDto updateASingleProduct(Long SKU, ProductRequest productRequest);
 
     ProductDto getProductBySku(Long sku);
 
     boolean deleteProduct(Long sku);
+
 }

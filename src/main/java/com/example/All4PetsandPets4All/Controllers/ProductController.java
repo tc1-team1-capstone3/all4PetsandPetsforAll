@@ -5,7 +5,11 @@ import com.example.All4PetsandPets4All.Dto.WarehouseDto;
 import com.example.All4PetsandPets4All.Models.Requests.ProductRequest;
 import com.example.All4PetsandPets4All.Models.Responses.ProductResponses;
 import com.example.All4PetsandPets4All.Services.ProductService;
-import com.fasterxml.jackson.databind.util.BeanUtil;
+
+import com.example.All4PetsandPets4All.Services.WarehouseService;
+
+import com.example.All4PetsandPets4All.dao.WarehouseRepository;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,24 +22,26 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final WarehouseService warehouseService;
+    private final WarehouseRepository warehouseRepository;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, WarehouseService warehouseService, WarehouseRepository warehouseRepository) {
         this.productService = productService;
+        this.warehouseService = warehouseService;
+        this.warehouseRepository = warehouseRepository;
     }
 
     @PostMapping
     public ProductResponses createProduct(@RequestBody ProductRequest productRequest) {
         ProductDto productDto = new ProductDto();
-
+        WarehouseDto warehouseDto = new WarehouseDto();
         BeanUtils.copyProperties(productRequest, productDto);
-        if (productDto.getQuantity() == null || productDto.getQuantity() < 1) {
-            productDto.setQuantity(0);
-        }
-
+        BeanUtils.copyProperties(productRequest, warehouseDto);
         ProductDto updatedProduct = productService.createProduct(productDto);
-
+        WarehouseDto updatedWarehouse = warehouseService.createWarehouseEntry(warehouseDto);
         ProductResponses returnValue = new ProductResponses();
         BeanUtils.copyProperties(updatedProduct, returnValue);
+        BeanUtils.copyProperties(updatedWarehouse, returnValue);
         return returnValue;
     }
 
@@ -43,8 +49,23 @@ public class ProductController {
     @PutMapping
     public ProductResponses updateProduct(@RequestBody ProductRequest productRequest) {
         ProductResponses returnValue = new ProductResponses();
-        ProductDto productDto = productService.updateProduct(productRequest);
+        WarehouseDto warehouseDto1 = new WarehouseDto();
+        BeanUtils.copyProperties(productRequest, warehouseDto1);
+        WarehouseDto returnedWarehouse = warehouseService.updateQuantity(warehouseDto1);
+//        ProductDto productDto = productService.updateProduct(productRequest);
+//        BeanUtils.copyProperties(productDto, returnValue);
+        BeanUtils.copyProperties(returnedWarehouse, returnValue);
+        System.out.println(returnValue.getQuantity() + " This is in the controller");
+        return returnValue;
+    }
+
+    @PutMapping(path = "/{SKU}")
+    public ProductResponses updateASingleProduct(@PathVariable Long SKU, @RequestBody ProductRequest productRequest){
+        ProductResponses returnValue = new ProductResponses();
+        ProductDto productDto = productService.updateASingleProduct(SKU, productRequest);
+        WarehouseDto warehouseDto = warehouseService.updateASingleProduct(SKU, productRequest);
         BeanUtils.copyProperties(productDto, returnValue);
+        BeanUtils.copyProperties(warehouseDto, returnValue);
         return returnValue;
     }
 
@@ -57,6 +78,7 @@ public class ProductController {
         for (ProductDto productDto : productDtos) {
             ProductResponses temp = new ProductResponses();
             BeanUtils.copyProperties(productDto, temp);
+            temp.setQuantity(warehouseRepository.findBySKU(temp.getSKU()).get().getQuantity());
             returnValue.add(temp);
         }
         return returnValue;

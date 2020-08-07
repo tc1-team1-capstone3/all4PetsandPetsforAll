@@ -2,6 +2,7 @@ package com.example.All4PetsandPets4All.Services.Implementations;
 
 import com.example.All4PetsandPets4All.Dto.ProductDto;
 import com.example.All4PetsandPets4All.Dto.WarehouseDto;
+import com.example.All4PetsandPets4All.ExceptionHandler.ApiRequestException;
 import com.example.All4PetsandPets4All.Models.ProductModel;
 import com.example.All4PetsandPets4All.Models.Requests.ProductRequest;
 import com.example.All4PetsandPets4All.Models.WarehouseModel;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -35,19 +37,18 @@ public class ProductServiceImplementation implements ProductService {
 
     @Override
     public ProductDto createProduct(ProductDto productDto) {
-
-        System.out.println(productDto.getQuantity());
-        ProductModel newProduct = new ProductModel();
-        WarehouseModel newWarehouse = new WarehouseModel();
-
-        BeanUtils.copyProperties(productDto, newProduct);
-        BeanUtils.copyProperties(productDto, newWarehouse);
-        if (newWarehouse.getQuantity() < 1) {
-            newWarehouse.setQuantity(0);
+        if(! productRepository.findBySKU(productDto.getSKU()).isEmpty()){
+            throw new ApiRequestException("That SKU Already Exists");
         }
-
+        ProductModel newProduct = new ProductModel();
+       // WarehouseModel newWarehouse = new WarehouseModel();
+        BeanUtils.copyProperties(productDto, newProduct);
+//        BeanUtils.copyProperties(productDto, newWarehouse);
+//        if (newWarehouse.getQuantity() < 1) {
+//            newWarehouse.setQuantity(0);
+//        }
         ProductModel storedProductDetails = productRepository.save(newProduct);
-        warehouseRepository.save(newWarehouse);
+//        warehouseRepository.save(newWarehouse);
 
         ProductDto returnValue = new ProductDto();
         BeanUtils.copyProperties(storedProductDetails, returnValue);
@@ -70,17 +71,45 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     @Override
-    public ProductDto updateProduct(ProductRequest productRequest) {
-        //ProductModel selectedProduct = productRepository.findBySKU(productRequest.getSKU()).get();
-        WarehouseModel warehouseModel = warehouseRepository.findBySKU(productRequest.getSKU()).get();
-        if (productRequest.getQuantity() > 0) {
-            warehouseModel.setQuantity(warehouseModel.getQuantity() + productRequest.getQuantity());
-            warehouseRepository.save(warehouseModel);
+    public ProductDto updateASingleProduct(Long SKU, ProductRequest productRequest) {
+        ProductModel productModel = productRepository.findBySKU(SKU).get();
+        if(productModel == null){
+            throw new ApiRequestException("That SKU doesn't Exist!");
         }
-        ProductDto returnValue = new ProductDto();
-        BeanUtils.copyProperties(productRequest, returnValue);
-        BeanUtils.copyProperties(warehouseModel, returnValue);
-        return returnValue;
+        if(productRequest.getSKU() == null){
+            productModel.setSKU(productModel.getSKU());
+        }
+        if(productRequest.getSKU() != null){
+            productModel.setSKU(productRequest.getSKU());
+        }
+        if(productRequest.getName() == null){
+            productModel.setName(productModel.getName());
+        }
+        if(productRequest.getName() != null){
+            productModel.setName(productRequest.getName());
+        }
+        if(productRequest.getDescription() == null){
+            productModel.setDescription(productModel.getDescription());
+        }
+        if(productRequest.getDescription() != null){
+            productModel.setDescription(productRequest.getDescription());
+        }
+        if(productRequest.getImgUrl() == null){
+            productModel.setImgUrl(productModel.getImgUrl());
+        }
+        if(productRequest.getImgUrl() != null){
+            productModel.setImgUrl(productRequest.getImgUrl());
+        }
+        if(productRequest.getPrice() == null){
+            productModel.setPrice(productModel.getPrice());
+        }
+        if(productRequest.getPrice() != null){
+            productModel.setPrice(productRequest.getPrice());
+        }
+        ProductModel saveProduct = productRepository.save(productModel);
+        ProductDto returnDto = new ProductDto();
+        BeanUtils.copyProperties(saveProduct, returnDto);
+        return returnDto;
     }
 
     @Override

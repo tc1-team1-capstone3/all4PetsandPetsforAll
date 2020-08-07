@@ -10,8 +10,10 @@ public class WarehouseModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private int quantity;
+    @Column
+    private Integer quantity;
 
+    @Column(nullable = false, unique = true)
     private Long SKU;
 
     public WarehouseModel() {
@@ -31,11 +33,11 @@ public class WarehouseModel {
         this.id = id;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 

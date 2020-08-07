@@ -8,20 +8,20 @@ public class ProductDto {
     String description;
     Double price;
     String imgUrl;
-    Integer quantity;
+   // Integer quantity;
 
     public ProductDto() {
        super();
     }
 
-    public ProductDto(Long SKU, String name, String description, Double price, String imgUrl, Integer quantity) {
+    public ProductDto(Long SKU, String name, String description, Double price, String imgUrl) {
         super();
         this.SKU = SKU;
         this.name = name;
         this.description = description;
         this.price = price;
         this.imgUrl = imgUrl;
-        this.quantity = quantity;
+//        this.quantity = quantity;
     }
 
     public Long getId() {
@@ -72,11 +72,11 @@ public class ProductDto {
         this.imgUrl = imgUrl;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
+//    public Integer getQuantity() {
+//        return quantity;
+//    }
+//
+//    public void setQuantity(Integer quantity) {
+//        this.quantity = quantity;
+//    }
 }
