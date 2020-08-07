@@ -13,4 +13,6 @@ public interface ProductService {
     ProductDto updateProduct(ProductRequest productRequest);
 
     ProductDto getProductBySku(Long sku);
+
+    boolean deleteProduct(Long sku);
 }
