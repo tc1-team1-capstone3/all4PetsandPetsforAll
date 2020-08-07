@@ -16,11 +16,11 @@ const Home = () => {
 	}, []);
 	return (
 		<div>
-			<SearchBar />
-			<h1>Hello World</h1>
-			<Link to="/admin">
+			{/* <SearchBar /> */}
+
+			{/* <Link to="/admin">
 				<h2>Admin</h2>
-			</Link>
+			</Link> */}
 			<div>
 				<ItemDisplay productList={productList} admin={false} />
 			</div>

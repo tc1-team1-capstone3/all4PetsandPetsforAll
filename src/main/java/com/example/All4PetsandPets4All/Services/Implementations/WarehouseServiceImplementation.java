@@ -43,6 +43,9 @@ public class WarehouseServiceImplementation implements WarehouseService {
         if(productRequest.getQuantity() != null && productRequest.getQuantity() > 0){
             warehouseModel.setQuantity(productRequest.getQuantity());
         }
+        if(productRequest.getSKU() != SKU){
+            warehouseModel.setSKU(productRequest.getSKU());
+        }
         WarehouseModel savedWarehouse = warehouseRepository.save(warehouseModel);
         WarehouseDto warehouseDto = new WarehouseDto();
         BeanUtils.copyProperties(savedWarehouse, warehouseDto);

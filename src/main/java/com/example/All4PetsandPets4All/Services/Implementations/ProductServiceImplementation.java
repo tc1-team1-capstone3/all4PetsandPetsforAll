@@ -41,17 +41,15 @@ public class ProductServiceImplementation implements ProductService {
             throw new ApiRequestException("That SKU Already Exists");
         }
         ProductModel newProduct = new ProductModel();
-       // WarehouseModel newWarehouse = new WarehouseModel();
+        WarehouseModel newWarehouse = new WarehouseModel();
         BeanUtils.copyProperties(productDto, newProduct);
-//        BeanUtils.copyProperties(productDto, newWarehouse);
-//        if (newWarehouse.getQuantity() < 1) {
-//            newWarehouse.setQuantity(0);
-//        }
+        newWarehouse.setSKU(productDto.getSKU());
+        newWarehouse.setQuantity(0);
         ProductModel storedProductDetails = productRepository.save(newProduct);
-//        warehouseRepository.save(newWarehouse);
-
+        WarehouseModel storedQuantity = warehouseRepository.save(newWarehouse);
         ProductDto returnValue = new ProductDto();
         BeanUtils.copyProperties(storedProductDetails, returnValue);
+        BeanUtils.copyProperties(storedQuantity, returnValue);
         return returnValue;
     }
 
