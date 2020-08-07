@@ -17,10 +17,10 @@ const AdminProduct = () => {
     }, [])
     return (
         <>
-            {productData ?
-                <Item product={productData} admin={true} />
-                : <h1>No Item Found</h1>
-            }
+            {productData ? '' : <h1>No Item Found</h1> }
+            <div>
+                {productData ? <Item product={productData} admin={true} /> : '' }
+            </div>
         </>
     );
 };

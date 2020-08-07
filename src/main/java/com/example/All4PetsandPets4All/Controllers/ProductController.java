@@ -9,6 +9,7 @@ import com.example.All4PetsandPets4All.Services.ProductService;
 import com.example.All4PetsandPets4All.Services.WarehouseService;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -32,9 +33,6 @@ public class ProductController {
         WarehouseDto warehouseDto = new WarehouseDto();
         BeanUtils.copyProperties(productRequest, productDto);
         BeanUtils.copyProperties(productRequest, warehouseDto);
-//        if (productDto.getQuantity() == null || productDto.getQuantity() < 1) {
-//            productDto.setQuantity(0);
-//        }
         ProductDto updatedProduct = productService.createProduct(productDto);
         WarehouseDto updatedWarehouse = warehouseService.createWarehouseEntry(warehouseDto);
         ProductResponses returnValue = new ProductResponses();
@@ -87,5 +85,15 @@ public class ProductController {
         ProductDto productDto = productService.getProductBySku(sku);
         BeanUtils.copyProperties(productDto, returnValue);
         return returnValue;
+    }
+
+    @DeleteMapping(path = "/{sku}")
+    public ResponseEntity deleteProduct(@PathVariable Long sku){
+        //Searching the db for a match and deleting it
+        boolean success = productService.deleteProduct(sku);
+        if(!success){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.accepted().body("User Deleted");
     }
 }

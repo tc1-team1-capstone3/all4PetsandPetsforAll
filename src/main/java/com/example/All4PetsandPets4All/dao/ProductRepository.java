@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends PagingAndSortingRepository<ProductModel, Long> {
     Optional<ProductModel> findBySKU(Long SKU);
+    void deleteBySKU(Long SKU);
 }

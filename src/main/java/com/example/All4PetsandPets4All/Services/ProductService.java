@@ -14,4 +14,6 @@ public interface ProductService {
 
     ProductDto getProductBySku(Long sku);
 
+    boolean deleteProduct(Long sku);
+
 }
