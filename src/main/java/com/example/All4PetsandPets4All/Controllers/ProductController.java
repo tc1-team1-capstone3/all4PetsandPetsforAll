@@ -5,6 +5,7 @@ import com.example.All4PetsandPets4All.Dto.WarehouseDto;
 import com.example.All4PetsandPets4All.Models.Requests.ProductRequest;
 import com.example.All4PetsandPets4All.Models.Responses.ProductResponses;
 import com.example.All4PetsandPets4All.Services.ProductService;
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,6 +58,14 @@ public class ProductController {
             BeanUtils.copyProperties(productDto, temp);
             returnValue.add(temp);
         }
+        return returnValue;
+    }
+
+    @GetMapping(path = "/sku/{sku}")
+    public ProductResponses getProduct(@PathVariable Long sku) {
+        ProductResponses returnValue = new ProductResponses();
+        ProductDto productDto = productService.getProductBySku(sku);
+        BeanUtils.copyProperties(productDto, returnValue);
         return returnValue;
     }
 }
