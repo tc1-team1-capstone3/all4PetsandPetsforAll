@@ -5,6 +5,7 @@ import com.example.All4PetsandPets4All.Dto.WarehouseDto;
 import com.example.All4PetsandPets4All.Models.Requests.ProductRequest;
 import com.example.All4PetsandPets4All.Models.Responses.ProductResponses;
 import com.example.All4PetsandPets4All.Services.ProductService;
+import com.example.All4PetsandPets4All.Services.WarehouseService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,24 +17,27 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final WarehouseService warehouseService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, WarehouseService warehouseService) {
         this.productService = productService;
+        this.warehouseService = warehouseService;
     }
 
     @PostMapping
     public ProductResponses createProduct(@RequestBody ProductRequest productRequest) {
         ProductDto productDto = new ProductDto();
-
+        WarehouseDto warehouseDto = new WarehouseDto();
         BeanUtils.copyProperties(productRequest, productDto);
-        if (productDto.getQuantity() == null || productDto.getQuantity() < 1) {
-            productDto.setQuantity(0);
-        }
-
+        BeanUtils.copyProperties(productRequest, warehouseDto);
+//        if (productDto.getQuantity() == null || productDto.getQuantity() < 1) {
+//            productDto.setQuantity(0);
+//        }
         ProductDto updatedProduct = productService.createProduct(productDto);
-
+        WarehouseDto updatedWarehouse = warehouseService.createWarehouseEntry(warehouseDto);
         ProductResponses returnValue = new ProductResponses();
         BeanUtils.copyProperties(updatedProduct, returnValue);
+        BeanUtils.copyProperties(updatedWarehouse, returnValue);
         return returnValue;
     }
 
@@ -41,8 +45,13 @@ public class ProductController {
     @PutMapping
     public ProductResponses updateProduct(@RequestBody ProductRequest productRequest) {
         ProductResponses returnValue = new ProductResponses();
-        ProductDto productDto = productService.updateProduct(productRequest);
-        BeanUtils.copyProperties(productDto, returnValue);
+        WarehouseDto warehouseDto1 = new WarehouseDto();
+        BeanUtils.copyProperties(productRequest, warehouseDto1);
+        WarehouseDto returnedWarehouse = warehouseService.updateQuantity(warehouseDto1);
+//        ProductDto productDto = productService.updateProduct(productRequest);
+//        BeanUtils.copyProperties(productDto, returnValue);
+        BeanUtils.copyProperties(returnedWarehouse, returnValue);
+        System.out.println(returnValue.getQuantity() + " This is in the controller");
         return returnValue;
     }
 
@@ -50,7 +59,9 @@ public class ProductController {
     public ProductResponses updateASingleProduct(@PathVariable Long SKU, @RequestBody ProductRequest productRequest){
         ProductResponses returnValue = new ProductResponses();
         ProductDto productDto = productService.updateASingleProduct(SKU, productRequest);
+        WarehouseDto warehouseDto = warehouseService.updateASingleProduct(SKU, productRequest);
         BeanUtils.copyProperties(productDto, returnValue);
+        BeanUtils.copyProperties(warehouseDto, returnValue);
         return returnValue;
     }
 

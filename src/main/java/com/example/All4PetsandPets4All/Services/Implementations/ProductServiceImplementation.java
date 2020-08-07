@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImplementation implements ProductService {
@@ -33,10 +34,9 @@ public class ProductServiceImplementation implements ProductService {
 
     @Override
     public ProductDto createProduct(ProductDto productDto) {
-        if(productRepository.findBySKU(productDto.getSKU()) != null){
+        if(! productRepository.findBySKU(productDto.getSKU()).isEmpty()){
             throw new ApiRequestException("That SKU Already Exists");
         }
-        System.out.println(productDto.getQuantity());
         ProductModel newProduct = new ProductModel();
         WarehouseModel newWarehouse = new WarehouseModel();
 
@@ -69,18 +69,18 @@ public class ProductServiceImplementation implements ProductService {
         return productDtos;
     }
 
-    @Override
-    public ProductDto updateProduct(ProductRequest productRequest) {
-        WarehouseModel warehouseModel = warehouseRepository.findBySKU(productRequest.getSKU()).get();
-        if (productRequest.getQuantity() > 0) {
-            warehouseModel.setQuantity(warehouseModel.getQuantity() + productRequest.getQuantity());
-            warehouseRepository.save(warehouseModel);
-        }
-        ProductDto returnValue = new ProductDto();
-        BeanUtils.copyProperties(productRequest, returnValue);
-        BeanUtils.copyProperties(warehouseModel, returnValue);
-        return returnValue;
-    }
+//    @Override
+//    public ProductDto updateProduct(ProductRequest productRequest) {
+//        WarehouseModel warehouseModel = warehouseRepository.findBySKU(productRequest.getSKU()).get();
+//        if (productRequest.getQuantity() > 0) {
+//            warehouseModel.setQuantity(warehouseModel.getQuantity() + productRequest.getQuantity());
+//            warehouseRepository.save(warehouseModel);
+//        }
+//        ProductDto returnValue = new ProductDto();
+//        BeanUtils.copyProperties(productRequest, returnValue);
+//        BeanUtils.copyProperties(warehouseModel, returnValue);
+//        return returnValue;
+//    }
 
     @Override
     public ProductDto updateASingleProduct(Long SKU, ProductRequest productRequest) {

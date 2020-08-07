@@ -36,16 +36,16 @@ class ServiceTests {
 				"penguin",
 				"wintery friend",
 				100.00,
-				"url",
-				1
+				"url"
+
 		);
 		ProductDto expectedDto = new ProductDto(
 				1234L,
 				"penguin",
 				"wintery friend",
 				100.00,
-				"url",
-				1
+				"url"
+
 		);
 		expectedDto.setId(55L);
 		ProductModel saveToDB = new ProductModel();
