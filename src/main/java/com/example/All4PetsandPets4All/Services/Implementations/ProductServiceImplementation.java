@@ -91,17 +91,32 @@ public class ProductServiceImplementation implements ProductService {
         if(productRequest.getSKU() == null){
             productModel.setSKU(productModel.getSKU());
         }
+        if(productRequest.getSKU() != null){
+            productModel.setSKU(productRequest.getSKU());
+        }
         if(productRequest.getName() == null){
             productModel.setName(productModel.getName());
+        }
+        if(productRequest.getName() != null){
+            productModel.setName(productRequest.getName());
         }
         if(productRequest.getDescription() == null){
             productModel.setDescription(productModel.getDescription());
         }
+        if(productRequest.getDescription() != null){
+            productModel.setDescription(productRequest.getDescription());
+        }
         if(productRequest.getImgUrl() == null){
             productModel.setImgUrl(productModel.getImgUrl());
         }
+        if(productRequest.getImgUrl() != null){
+            productModel.setImgUrl(productRequest.getImgUrl());
+        }
         if(productRequest.getPrice() == null){
             productModel.setPrice(productModel.getPrice());
+        }
+        if(productRequest.getPrice() != null){
+            productModel.setPrice(productRequest.getPrice());
         }
         ProductModel saveProduct = productRepository.save(productModel);
         ProductDto returnDto = new ProductDto();
