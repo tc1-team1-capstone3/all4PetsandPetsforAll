@@ -7,6 +7,7 @@ import com.example.All4PetsandPets4All.Models.Responses.ProductResponses;
 import com.example.All4PetsandPets4All.Services.ProductService;
 import com.fasterxml.jackson.databind.util.BeanUtil;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -67,5 +68,15 @@ public class ProductController {
         ProductDto productDto = productService.getProductBySku(sku);
         BeanUtils.copyProperties(productDto, returnValue);
         return returnValue;
+    }
+
+    @DeleteMapping(path = "/{sku}")
+    public ResponseEntity deleteProduct(@PathVariable Long sku){
+        //Searching the db for a match and deleting it
+        boolean success = productService.deleteProduct(sku);
+        if(!success){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.accepted().body("User Deleted");
     }
 }

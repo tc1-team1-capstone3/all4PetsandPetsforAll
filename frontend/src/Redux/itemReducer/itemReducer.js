@@ -3,10 +3,12 @@ import ProductsApi from '../../Utils/productAPI';
 const POST_ITEM = 'POST_ITEM';
 const GET_ITEMS = 'GET_ITEMS';
 const GET_ITEM = 'GET_ITEM';
+const DELETE_ITEM = 'DELETE_ITEM';
 
 const setPostItem = (payload) => ({ type: POST_ITEM, payload });
 const setGetItems = (payload) => ({ type: GET_ITEMS, payload });
 const setGetItem = (payload) => ({ type: GET_ITEM, payload });
+const setDeleteItem = (payload) => ({ type: DELETE_ITEM, payload });
 
 export const getItem = (sku) => {
 	return (dispatch) => {
@@ -28,6 +30,14 @@ export const postItem = (sku, name, description, price, imgUrl) => {
 	};
 };
 
+export const deleteItem = (sku) => {
+	return (dispatch) => {
+		ProductsApi.deleteProduct(sku).then(() => {
+			getItems();
+		})
+	}
+}
+
 const initialState = {
 	items: []
 };
@@ -40,6 +50,11 @@ export default function itemReducer(state = initialState, action) {
 				items: action.payload
 			};
 		case `${GET_ITEMS}`:
+			return {
+				...state,
+				items: action.payload
+			};
+		case `${DELETE_ITEM}`:
 			return {
 				...state,
 				items: action.payload

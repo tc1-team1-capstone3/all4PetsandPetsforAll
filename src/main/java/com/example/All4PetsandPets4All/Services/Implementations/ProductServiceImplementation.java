@@ -17,10 +17,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class ProductServiceImplementation implements ProductService {
 
     private final ProductRepository productRepository;
@@ -89,5 +91,17 @@ public class ProductServiceImplementation implements ProductService {
         BeanUtils.copyProperties(selectedProduct, returnValue);
         BeanUtils.copyProperties(warehouseDto, returnValue);
         return returnValue;
+    }
+
+    @Override
+    public boolean deleteProduct(Long sku) {
+        ProductModel foundItem = productRepository.findBySKU(sku).get();
+        WarehouseModel foundQuantity = warehouseRepository.findBySKU(sku).get();
+        if(foundItem != null || foundQuantity != null ){
+            productRepository.deleteBySKU(sku);
+            warehouseRepository.deleteBySKU(sku);
+            return true;
+        }
+        return false;
     }
 }
