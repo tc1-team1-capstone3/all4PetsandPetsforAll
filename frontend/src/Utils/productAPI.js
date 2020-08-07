@@ -15,5 +15,8 @@ export default {
 	},
 	deleteProduct: function (sku) {
 		return axios.delete(`products/${sku}`)
+	},
+    updateProduct(sku, productData) {
+		return axios.put(`products/${sku}`, productData)
 	}
 };

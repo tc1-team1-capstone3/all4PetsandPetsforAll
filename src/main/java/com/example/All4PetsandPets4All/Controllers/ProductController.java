@@ -34,14 +34,10 @@ public class ProductController {
     @PostMapping
     public ProductResponses createProduct(@RequestBody ProductRequest productRequest) {
         ProductDto productDto = new ProductDto();
-        WarehouseDto warehouseDto = new WarehouseDto();
         BeanUtils.copyProperties(productRequest, productDto);
-        BeanUtils.copyProperties(productRequest, warehouseDto);
         ProductDto updatedProduct = productService.createProduct(productDto);
-        WarehouseDto updatedWarehouse = warehouseService.createWarehouseEntry(warehouseDto);
         ProductResponses returnValue = new ProductResponses();
         BeanUtils.copyProperties(updatedProduct, returnValue);
-        BeanUtils.copyProperties(updatedWarehouse, returnValue);
         return returnValue;
     }
 
@@ -71,7 +67,7 @@ public class ProductController {
 
     @GetMapping
     public List<ProductResponses> getProducts(@RequestParam(defaultValue = "0") Integer pageNo,
-                                             @RequestParam(defaultValue = "15") Integer pageSize,
+                                             @RequestParam(defaultValue = "50") Integer pageSize,
                                              @RequestParam(defaultValue = "id") String sortBy) {
         List<ProductResponses> returnValue = new ArrayList<>();
         List<ProductDto> productDtos = productService.getProducts(pageNo, pageSize, sortBy);
