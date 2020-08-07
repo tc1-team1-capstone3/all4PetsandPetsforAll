@@ -6,11 +6,14 @@ const SearchBar = () => {
 		setInput(e.target.value);
 	};
 	return (
-		<div>
-			<input style={{ marginLeft: '100px' }} onChange={(e) => onChangeHandler(e)} placeholder="search items" />
+		<div style={{ marginTop: '4%' }}>
+			<input
+				style={{ width: '200px', borderRadius: '5px', marginRight: '10px' }}
+				onChange={(e) => onChangeHandler(e)}
+				placeholder="search items"
+			/>
 			<Link to={`/search/${input}`}>
-				{' '}
-				<button content="search" />
+				<button>Search</button>
 			</Link>
 		</div>
 	);
