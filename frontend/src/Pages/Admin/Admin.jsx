@@ -51,13 +51,10 @@ const Admin = () => {
 			setProductList(returnedList.data);
 		};
 		getProductList();
-	}, []);
+	});
 
 	return (
 		<div className="input-wrapper">
-			{/* <Link to="/">
-				<h1>Home</h1>
-			</Link> */}
 			<h1>Add Product</h1>
 			<form>
 				<label htmlFor="sku">Item Sku</label>
@@ -112,8 +109,8 @@ const Admin = () => {
 				<br />
 				<button
 					type="submit"
-					onClick={async (e) => {
-						await dispatch(postItem(sku, itemName, description, price, avatarUrl));
+					onClick={(e) => {
+						dispatch(postItem(sku, itemName, description, price, avatarUrl));
 					}}
 				>
 					Add to List

@@ -16,15 +16,9 @@ const Home = () => {
 	}, []);
 	return (
 		<div>
-			{/* <SearchBar /> */}
-
-			{/* <Link to="/admin">
-				<h2>Admin</h2>
-			</Link> */}
 			<div>
 				<ItemDisplay productList={productList} admin={false} />
 			</div>
-			{/*<Featured/>*/}
 		</div>
 	);
 };
