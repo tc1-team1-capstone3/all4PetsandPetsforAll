@@ -46,6 +46,14 @@ public class ProductController {
         return returnValue;
     }
 
+    @PutMapping(path = "/{SKU}")
+    public ProductResponses updateASingleProduct(@PathVariable Long SKU, @RequestBody ProductRequest productRequest){
+        ProductResponses returnValue = new ProductResponses();
+        ProductDto productDto = productService.updateASingleProduct(SKU, productRequest);
+        BeanUtils.copyProperties(productDto, returnValue);
+        return returnValue;
+    }
+
     @GetMapping
     public List<ProductResponses> getProducts(@RequestParam(defaultValue = "0") Integer pageNo,
                                              @RequestParam(defaultValue = "15") Integer pageSize,

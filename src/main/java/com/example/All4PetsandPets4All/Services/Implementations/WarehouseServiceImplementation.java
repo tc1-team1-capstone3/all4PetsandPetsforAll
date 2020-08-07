@@ -1,6 +1,7 @@
 package com.example.All4PetsandPets4All.Services.Implementations;
 
 import com.example.All4PetsandPets4All.Dto.WarehouseDto;
+import com.example.All4PetsandPets4All.ExceptionHandler.ApiRequestException;
 import com.example.All4PetsandPets4All.Models.WarehouseModel;
 import com.example.All4PetsandPets4All.Services.WarehouseService;
 import com.example.All4PetsandPets4All.dao.ProductRepository;
