@@ -17,6 +17,7 @@ const Home = () => {
 	return (
 		<div>
 			<div>
+				<h1>OUR ANIMALS</h1>
 				<ItemDisplay productList={productList} admin={false} />
 			</div>
 		</div>

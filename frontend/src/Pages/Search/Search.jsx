@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../../Redux/itemReducer/itemReducer';
 import { useParams } from 'react-router-dom';
-import '../../Components/Item/Item.scss';
+import './Search.scss';
+import Featured from '../../Components/Featured/Featured';
+import { Link } from 'react-router-dom';
 const Search = () => {
 	// const [ filtered, setFiletered ] = useState([]);
 	const item = useSelector((state) => state.itemReducer.items);
@@ -16,7 +18,7 @@ const Search = () => {
 			let lowered = id.toLowerCase();
 			if (product.name.toLowerCase().includes(lowered)) {
 				return (
-					<div className="product-info">
+					<div>
 						<div className="outerWrapper ">
 							<div
 								className="product-card"
@@ -29,8 +31,9 @@ const Search = () => {
 									borderBottom: '2px solid lightpink'
 								}}
 							>
+								<h1>{`Name: ${product.name}`}</h1>
 								<img src={product.imgUrl} height="200px" width="200px" />
-								<p>{`Name: ${product.name}`}</p>
+
 								<p>{`Description: ${product.description}`}</p>
 								<p>{`price: $ ${product.price}`}</p>
 							</div>
@@ -40,11 +43,13 @@ const Search = () => {
 			}
 		})
 	) : (
-		<div>couldnt find any items with that name</div>
+		<h1>couldnt find any items with that name</h1>
 	);
 	return (
 		<div>
-			<p>{filtered}</p>
+			{filtered}
+			<h2>OUR FEATURED ITEMS</h2>
+			<Featured />
 		</div>
 	);
 };

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getItems } from '../../Redux/itemReducer/itemReducer';
-
+import './Featured.scss';
+import { Link } from 'react-router-dom';
 const Featured = () => {
 	const item = useSelector((state) => state.itemReducer.items);
 	const dispatch = useDispatch();
@@ -12,19 +13,17 @@ const Featured = () => {
 	let displayItems = shuffled
 		? shuffled.slice(-5).map((product) => {
 				return (
-					<div style={{ display: 'flex' }}>
-						<p>{product.name}</p>
-						<img src={product.imgUrl} height="100px" width="100px" />
+					<div>
+						<Link to={`/product/${product.sku}`}>
+							<img src={product.imgUrl} height="200px" width="200px" />
+							<p>{product.name}</p>
+						</Link>
 					</div>
 				);
 			})
 		: '';
 
-	return (
-		<div>
-			<p>{displayItems}</p>
-		</div>
-	);
+	return <div className="featured-wrapper">{displayItems}</div>;
 };
 
 export default Featured;

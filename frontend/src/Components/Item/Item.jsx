@@ -26,13 +26,14 @@ const Item = ({product, admin}) => {
             borderBottom: "2px solid lightpink"
         }}>
             <Link to={admin ? `/adminProduct/${product.sku}` : `/product/${product.sku}`}>
+            <h1>{product.name}</h1>
                 <img className='product-img' height="200px" width="200px" src={ product.imgUrl === (null || '' ) ? 'A4PLogo.jpg' : product.imgUrl } alt={product.name} />
             </Link>
             <div className='product-info'>
                 <p>
                     Product SKU: {product.sku}
                 </p>
-                <p>Product Name: {product.name}</p>
+                
                 <p>Description:{' '}
                     {product.description}</p>
                 <p>Price: ${product.price}</p>
