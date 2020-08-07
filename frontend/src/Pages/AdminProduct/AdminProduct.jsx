@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import productAPI from "../../Utils/productAPI";
+import Item from "../../Components/Item/Item";
 
 const AdminProduct = () => {
     const [productData, setProductData] = useState();
@@ -8,15 +9,19 @@ const AdminProduct = () => {
 
     useEffect(() => {
         const getProductData = async () => {
-            const returnedList = await productAPI.getProduct(sku)
-            setProductData(returnedList.data)
+            const returnedItem = await productAPI.getProduct(sku)
+            console.log(returnedItem.data)
+            setProductData(returnedItem.data)
         }
         getProductData();
     }, [])
     return (
-        <div>
-            <h1>Product Name: {productData ? productData.name : ''}</h1>
-        </div>
+        <>
+            {productData ?
+                <Item product={productData} admin={true} />
+                : <h1>No Item Found</h1>
+            }
+        </>
     );
 };
 
