@@ -8,6 +8,8 @@ import com.example.All4PetsandPets4All.Services.ProductService;
 
 import com.example.All4PetsandPets4All.Services.WarehouseService;
 
+import com.example.All4PetsandPets4All.dao.WarehouseRepository;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +23,12 @@ public class ProductController {
 
     private final ProductService productService;
     private final WarehouseService warehouseService;
+    private final WarehouseRepository warehouseRepository;
 
-    public ProductController(ProductService productService, WarehouseService warehouseService) {
+    public ProductController(ProductService productService, WarehouseService warehouseService, WarehouseRepository warehouseRepository) {
         this.productService = productService;
         this.warehouseService = warehouseService;
+        this.warehouseRepository = warehouseRepository;
     }
 
     @PostMapping
@@ -74,6 +78,7 @@ public class ProductController {
         for (ProductDto productDto : productDtos) {
             ProductResponses temp = new ProductResponses();
             BeanUtils.copyProperties(productDto, temp);
+            temp.setQuantity(warehouseRepository.findBySKU(temp.getSKU()).get().getQuantity());
             returnValue.add(temp);
         }
         return returnValue;
